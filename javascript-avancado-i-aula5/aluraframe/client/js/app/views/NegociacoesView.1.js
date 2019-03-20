@@ -28,9 +28,14 @@ class NegociacoesView {
                     `).join('')}
                 </tbody>
                     <td colspan="3"></td>
-                    <td>
-                        ${model.negociacoes.reduce((total,n) => total + n.volume, 0.0)}
-                    </td>s
+                    <td>${
+                        (function() {
+                            let total = 0;
+                            model.negociacoes.forEach(n => total += n.volume);
+                            return total;
+                        })()
+                    }</td>
+
                 <tfoot>
                 </tfoot>
                 </table>
@@ -40,14 +45,5 @@ class NegociacoesView {
     update(model) {
 
         this._elemento.innerHTML = this._template(model);
-        
-        // Exemplo de como reduzir uma funcao arrow
-        // numeros.reduce(function(total,num) {
-        //     return total * num;
-        // }, 1);
-
-        // numeros.reduce((total, num) => total * num, 1);
-        // numeros.reduce((total, num) => total * num, 1);
-
     };
 };
